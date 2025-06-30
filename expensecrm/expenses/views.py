@@ -85,14 +85,28 @@ def expense_delete(request, pk):
 
 @login_required
 def expense_summary(request):
+    expenses = Expense.objects.select_related("category")
+    start_date = request.GET.get("start_date")
+    end_date = request.GET.get("end_date")
+
+    if start_date:
+        expenses = expenses.filter(date__gte=start_date)
+    if end_date:
+        expenses = expenses.filter(date__lte=end_date)
+
     summary = (
-        Expense.objects.select_related("category")
-        .values("category__name")
+        expenses.values("category__name")
         .annotate(total=Sum("amount"))
+        .order_by("category__name")
     )
-    overall = Expense.objects.aggregate(total=Sum("amount"))["total"] or 0
+    overall = expenses.aggregate(total=Sum("amount"))["total"] or 0
     return render(
         request,
         "expenses/summary.html",
-        {"summary": summary, "overall": overall},
+        {
+            "summary": summary,
+            "overall": overall,
+            "start_date": start_date,
+            "end_date": end_date,
+        },
     )
