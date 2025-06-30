@@ -1,3 +1,10 @@
 body {
     padding-top: 20px;
+    background-color: #f8f9fa;
+}
+
+.form-card {
+    border-radius: 0.5rem;
+    padding: 2rem;
+    background-color: #ffffff;
 }

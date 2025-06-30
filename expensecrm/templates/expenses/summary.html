@@ -3,17 +3,21 @@
 {% block content %}
 <h1 class="mb-4">Expense Summary</h1>
 
-<form method="get" class="row g-3 mb-4">
-    <div class="col-auto">
-        <input type="date" name="start_date" value="{{ start_date }}" class="form-control" placeholder="Start date">
+<div class="card form-card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <input type="date" name="start_date" value="{{ start_date }}" class="form-control" placeholder="Start date">
+            </div>
+            <div class="col-md-4">
+                <input type="date" name="end_date" value="{{ end_date }}" class="form-control" placeholder="End date">
+            </div>
+            <div class="col-md-4 d-grid d-md-flex align-items-start">
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </form>
     </div>
-    <div class="col-auto">
-        <input type="date" name="end_date" value="{{ end_date }}" class="form-control" placeholder="End date">
-    </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Filter</button>
-    </div>
-</form>
+</div>
 
 <canvas id="summaryChart" height="100" class="mb-4"></canvas>
 
