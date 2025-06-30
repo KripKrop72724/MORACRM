@@ -3,7 +3,7 @@
 {% block content %}
 <h1 class="mb-4">Expenses</h1>
 <form method="get" class="row g-3 mb-3">
-    <div class="col-auto">
+    <div class="col-12 col-sm-auto">
         <select name="category" class="form-select" onchange="this.form.submit()">
             <option value="">All Categories</option>
             {% for c in categories %}
@@ -11,8 +11,8 @@
             {% endfor %}
         </select>
     </div>
-    <div class="col-auto">
-        <a href="{% url 'expense_add' %}" class="btn btn-primary">Add Expense</a>
+    <div class="col-12 col-sm-auto">
+        <a href="{% url 'expense_add' %}" class="btn btn-primary d-block d-sm-inline-block w-100 w-sm-auto">Add Expense</a>
     </div>
 </form>
 
