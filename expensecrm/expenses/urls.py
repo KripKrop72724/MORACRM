@@ -8,6 +8,7 @@ urlpatterns = [
     path('categories/add/', views.category_create, name='category_add'),
     path('<int:pk>/edit/', views.expense_update, name='expense_edit'),
     path('<int:pk>/delete/', views.expense_delete, name='expense_delete'),
+    path('bulk-delete/', views.expense_bulk_delete, name='expense_bulk_delete'),
     path('summary/', views.expense_summary, name='expense_summary'),
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
