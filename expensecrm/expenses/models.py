@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -18,6 +19,7 @@ class Expense(models.Model):
         ("Online", "Online"),
     ]
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="expenses", null=True, blank=True)
     date = models.DateField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
