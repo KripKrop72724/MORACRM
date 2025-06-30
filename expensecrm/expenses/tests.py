@@ -1,14 +1,15 @@
 from django.test import TestCase
-from .models import Expense
+from .models import Expense, Category
 from django.urls import reverse
 from datetime import date
 from decimal import Decimal
 
 class ExpenseModelTest(TestCase):
     def test_create_expense(self):
+        category = Category.objects.create(name='Food')
         expense = Expense.objects.create(
             date=date.today(),
-            category='Food',
+            category=category,
             description='Lunch',
             amount=Decimal('10.00'),
             payment_method='Cash'

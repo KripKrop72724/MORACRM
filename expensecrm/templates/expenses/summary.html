@@ -9,7 +9,7 @@
     <tbody>
         {% for item in summary %}
         <tr>
-            <td>{{ item.category }}</td>
+            <td>{{ item.category__name }}</td>
             <td class="text-end">{{ item.total }}</td>
         </tr>
         {% empty %}
