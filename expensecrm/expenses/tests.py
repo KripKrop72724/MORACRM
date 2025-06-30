@@ -1,0 +1,21 @@
+from django.test import TestCase
+from .models import Expense
+from django.urls import reverse
+from datetime import date
+from decimal import Decimal
+
+class ExpenseModelTest(TestCase):
+    def test_create_expense(self):
+        expense = Expense.objects.create(
+            date=date.today(),
+            category='Food',
+            description='Lunch',
+            amount=Decimal('10.00'),
+            payment_method='Cash'
+        )
+        self.assertEqual(str(expense), f"{expense.date} - Food - 10.00")
+
+class ExpenseViewsTest(TestCase):
+    def test_expense_list_view(self):
+        response = self.client.get(reverse('expense_list'))
+        self.assertEqual(response.status_code, 200)
