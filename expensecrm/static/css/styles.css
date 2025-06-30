@@ -36,6 +36,17 @@ body {
     }
 }
 
+/* Mobile card styles */
+@media (max-width: 768px) {
+    details.expense-card summary {
+        list-style: none;
+        cursor: pointer;
+    }
+    details.expense-card summary::-webkit-details-marker {
+        display: none;
+    }
+}
+
 @media (min-width: 576px) {
     .w-sm-auto {
         width: auto !important;
