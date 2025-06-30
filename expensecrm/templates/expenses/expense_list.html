@@ -15,10 +15,17 @@
         <a href="{% url 'expense_add' %}" class="btn btn-primary">Add Expense</a>
     </div>
 </form>
-<div class="table-responsive">
+
+<form method="post" action="{% url 'expense_bulk_delete' %}" id="bulkDeleteForm">
+    {% csrf_token %}
+    <div class="mb-3">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Delete selected expenses?');">Delete Selected</button>
+    </div>
+    <div class="table-responsive">
     <table class="table table-striped expenses-table">
         <thead>
             <tr>
+                <th scope="col"><input type="checkbox" id="selectAll"></th>
                 <th>Date</th>
                 <th>Category</th>
                 <th>Description</th>
@@ -31,6 +38,7 @@
         <tbody>
             {% for expense in expenses %}
             <tr>
+                <td data-label="Select"><input type="checkbox" name="selected_expenses" value="{{ expense.pk }}" class="select-box"></td>
                 <td data-label="Date">{{ expense.date }}</td>
                 <td data-label="Category">{{ expense.category.name }}</td>
                 <td data-label="Description">{{ expense.description }}</td>
@@ -43,16 +51,23 @@
                 </td>
             </tr>
             {% empty %}
-            <tr><td colspan="7">No expenses found.</td></tr>
+            <tr><td colspan="8">No expenses found.</td></tr>
             {% endfor %}
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="4"><strong>Total</strong></td>
                 <td class="text-end"><strong>{{ total }}</strong></td>
-                <td colspan="2"></td>
+                <td colspan="3"></td>
             </tr>
         </tfoot>
-    </table>
+</table>
 </div>
+</form>
+<script>
+document.getElementById('selectAll').addEventListener('change', function() {
+    const checked = this.checked;
+    document.querySelectorAll('.select-box').forEach(cb => cb.checked = checked);
+});
+</script>
 {% endblock %}

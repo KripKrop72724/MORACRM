@@ -19,7 +19,15 @@
     </div>
 </div>
 
-<canvas id="summaryChart" height="100" class="mb-4 w-100"></canvas>
+<div class="mb-3">
+    <label for="chartType" class="form-label">Chart Type</label>
+    <select id="chartType" class="form-select w-auto d-inline-block">
+        <option value="bar">Bar</option>
+        <option value="pie">Pie</option>
+        <option value="line">Line</option>
+    </select>
+</div>
+<canvas id="summaryChart" height="400" class="mb-4 w-100"></canvas>
 
 <div class="table-responsive">
     <table class="table table-bordered">
@@ -50,24 +58,30 @@
 const ctx = document.getElementById('summaryChart').getContext('2d');
 const labels = [{% for item in summary %}'{{ item.category__name }}'{% if not forloop.last %}, {% endif %}{% endfor %}];
 const data = [{% for item in summary %}{{ item.total }}{% if not forloop.last %}, {% endif %}{% endfor %}];
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Total',
-            data: data,
-            backgroundColor: 'rgba(54, 162, 235, 0.5)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: { beginAtZero: true }
+let chart;
+function renderChart(type) {
+    if (chart) chart.destroy();
+    chart = new Chart(ctx, {
+        type: type,
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Total',
+                data: data,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
         },
-        plugins: { legend: { display: false } }
-    }
+        options: {
+            scales: { y: { beginAtZero: true } },
+            plugins: { legend: { display: false } }
+        }
+    });
+}
+renderChart('bar');
+document.getElementById('chartType').addEventListener('change', function(e) {
+    renderChart(e.target.value);
 });
 </script>
 {% endblock %}

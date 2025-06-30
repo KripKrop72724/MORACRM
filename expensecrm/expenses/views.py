@@ -84,6 +84,15 @@ def expense_delete(request, pk):
 
 
 @login_required
+def expense_bulk_delete(request):
+    if request.method == "POST":
+        ids = request.POST.getlist("selected_expenses")
+        if ids:
+            Expense.objects.filter(id__in=ids).delete()
+    return redirect("expense_list")
+
+
+@login_required
 def expense_summary(request):
     expenses = Expense.objects.select_related("category")
     start_date = request.GET.get("start_date")
