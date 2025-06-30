@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<form method="post" class="card p-3">
-  {% csrf_token %}
-  <p>Are you sure you want to delete {{ expense }}?</p>
-  <button type="submit" class="btn btn-danger">Delete</button>
-  <a href="{% url 'expense_list' %}" class="btn btn-secondary">Cancel</a>
-</form>
-{% endblock %}
