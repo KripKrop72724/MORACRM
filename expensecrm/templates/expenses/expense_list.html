@@ -15,42 +15,44 @@
         <a href="{% url 'expense_add' %}" class="btn btn-primary">Add Expense</a>
     </div>
 </form>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th class="text-end">Amount</th>
-            <th>Payment</th>
-            <th>User</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for expense in expenses %}
-        <tr>
-            <td>{{ expense.date }}</td>
-            <td>{{ expense.category.name }}</td>
-            <td>{{ expense.description }}</td>
-            <td class="text-end">{{ expense.amount }}</td>
-            <td>{{ expense.payment_method }}</td>
-            <td>{{ expense.user.username }}</td>
-            <td>
-                <a href="{% url 'expense_edit' expense.pk %}" class="btn btn-sm btn-secondary">Edit</a>
-                <a href="{% url 'expense_delete' expense.pk %}" class="btn btn-sm btn-danger">Delete</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="7">No expenses found.</td></tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="4"><strong>Total</strong></td>
-            <td class="text-end"><strong>{{ total }}</strong></td>
-            <td colspan="2"></td>
-        </tr>
-    </tfoot>
-</table>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th class="text-end">Amount</th>
+                <th>Payment</th>
+                <th>User</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.date }}</td>
+                <td>{{ expense.category.name }}</td>
+                <td>{{ expense.description }}</td>
+                <td class="text-end">{{ expense.amount }}</td>
+                <td>{{ expense.payment_method }}</td>
+                <td>{{ expense.user.username }}</td>
+                <td>
+                    <a href="{% url 'expense_edit' expense.pk %}" class="btn btn-sm btn-secondary">Edit</a>
+                    <a href="{% url 'expense_delete' expense.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7">No expenses found.</td></tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4"><strong>Total</strong></td>
+                <td class="text-end"><strong>{{ total }}</strong></td>
+                <td colspan="2"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 {% endblock %}
