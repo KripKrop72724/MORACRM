@@ -1,6 +1,7 @@
 body {
     padding-top: 20px;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    min-height: 100vh;
 }
 
 .form-card {
