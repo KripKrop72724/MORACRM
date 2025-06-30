@@ -8,3 +8,29 @@ body {
     padding: 2rem;
     background-color: #ffffff;
 }
+
+/* Mobile friendly table for expenses */
+@media (max-width: 576px) {
+    .expenses-table thead {
+        display: none;
+    }
+    .expenses-table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .expenses-table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+        position: relative;
+    }
+    .expenses-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+    }
+    .expenses-table td[data-label='Actions'] {
+        justify-content: flex-start;
+        gap: 0.5rem;
+    }
+}
