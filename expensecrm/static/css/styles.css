@@ -10,7 +10,7 @@ body {
 }
 
 /* Mobile friendly table for expenses */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     .expenses-table thead {
         display: none;
     }
@@ -24,6 +24,7 @@ body {
         justify-content: space-between;
         padding: 0.5rem;
         position: relative;
+        word-break: break-word;
     }
     .expenses-table td::before {
         content: attr(data-label);
@@ -32,5 +33,11 @@ body {
     .expenses-table td[data-label='Actions'] {
         justify-content: flex-start;
         gap: 0.5rem;
+    }
+}
+
+@media (min-width: 576px) {
+    .w-sm-auto {
+        width: auto !important;
     }
 }
