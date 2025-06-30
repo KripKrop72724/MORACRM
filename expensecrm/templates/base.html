@@ -20,6 +20,15 @@
         <li class="nav-item"><a class="nav-link" href="{% url 'expense_add' %}">Add Expense</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'expense_summary' %}">Summary</a></li>
       </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item"><span class="navbar-text me-2">{{ user.username }}</span></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+        {% endif %}
+      </ul>
     </div>
   </div>
 </nav>
