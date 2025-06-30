@@ -2,6 +2,21 @@
 {% block title %}Summary{% endblock %}
 {% block content %}
 <h1 class="mb-4">Expense Summary</h1>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-auto">
+        <input type="date" name="start_date" value="{{ start_date }}" class="form-control" placeholder="Start date">
+    </div>
+    <div class="col-auto">
+        <input type="date" name="end_date" value="{{ end_date }}" class="form-control" placeholder="End date">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+<canvas id="summaryChart" height="100" class="mb-4"></canvas>
+
 <table class="table table-bordered">
     <thead>
         <tr><th>Category</th><th class="text-end">Total</th></tr>
@@ -23,4 +38,30 @@
         </tr>
     </tfoot>
 </table>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('summaryChart').getContext('2d');
+const labels = [{% for item in summary %}'{{ item.category__name }}'{% if not forloop.last %}, {% endif %}{% endfor %}];
+const data = [{% for item in summary %}{{ item.total }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Total',
+            data: data,
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: { beginAtZero: true }
+        },
+        plugins: { legend: { display: false } }
+    }
+});
+</script>
 {% endblock %}
