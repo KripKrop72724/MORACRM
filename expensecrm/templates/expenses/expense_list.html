@@ -6,8 +6,8 @@
     <div class="col-auto">
         <select name="category" class="form-select" onchange="this.form.submit()">
             <option value="">All Categories</option>
-            {% for c,_ in categories %}
-            <option value="{{ c }}" {% if request.GET.category == c %}selected{% endif %}>{{ c }}</option>
+            {% for c in categories %}
+            <option value="{{ c.id }}" {% if request.GET.category == c.id|stringformat:'s' %}selected{% endif %}>{{ c.name }}</option>
             {% endfor %}
         </select>
     </div>
@@ -30,7 +30,7 @@
         {% for expense in expenses %}
         <tr>
             <td>{{ expense.date }}</td>
-            <td>{{ expense.category }}</td>
+            <td>{{ expense.category.name }}</td>
             <td>{{ expense.description }}</td>
             <td class="text-end">{{ expense.amount }}</td>
             <td>{{ expense.payment_method }}</td>
