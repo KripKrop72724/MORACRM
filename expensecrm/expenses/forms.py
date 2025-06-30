@@ -30,11 +30,11 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "password1", "password2"]
-        widgets = {
-            "username": forms.TextInput(attrs={"class": "form-control"}),
-            "password1": forms.PasswordInput(attrs={"class": "form-control"}),
-            "password2": forms.PasswordInput(attrs={"class": "form-control"}),
-        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({"class": "form-control"})
 
 
 class LoginForm(AuthenticationForm):
