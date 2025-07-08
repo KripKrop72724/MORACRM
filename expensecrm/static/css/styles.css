@@ -1,6 +1,6 @@
 body {
     padding-top: 20px;
-    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    background: linear-gradient(135deg, #e0eafc, #cfdef3);
     min-height: 100vh;
 }
 
@@ -52,4 +52,14 @@ body {
     .w-sm-auto {
         width: auto !important;
     }
+}
+
+.expense-card-summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.expense-card-summary span {
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
