@@ -60,6 +60,12 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+## Configuring the API URL
+
+API requests use the `VITE_API_URL` environment variable. Copy `.env.example` to
+`.env` and set this value to your backend's base URL before running the dev
+server or building the project.
+
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/b3d448b1-4abf-4bd4-a26f-d424d27a7027) and click on Share -> Publish.

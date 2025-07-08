@@ -17,6 +17,9 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Base URL for API requests, configurable via Vite environment variable
+const API_BASE = import.meta.env.VITE_API_URL ?? '';
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -48,7 +51,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setIsLoading(true);
 
-      const response = await fetch('/api/login/', {
+      const response = await fetch(`${API_BASE}/api/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw new Error('Passwords do not match');
       }
 
-      const response = await fetch('/api/signup/', {
+      const response = await fetch(`${API_BASE}/api/signup/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
