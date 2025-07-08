@@ -47,26 +47,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
       setIsLoading(true);
-      
-      // TODO: Replace with actual API call to /api/login
-      // Mock login logic - accepts any email with password "password"
-      if (password === 'password') {
-        const mockUser: User = {
-          id: '1',
-          email: email,
-          name: email.split('@')[0],
-        };
-        
-        const mockToken = 'mock_jwt_token_' + Date.now();
-        
-        localStorage.setItem('authToken', mockToken);
-        localStorage.setItem('userData', JSON.stringify(mockUser));
-        setUser(mockUser);
-        
-        return true;
-      } else {
+
+      const response = await fetch('/api/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
         throw new Error('Invalid credentials');
       }
+
+      const data = await response.json();
+      localStorage.setItem('authToken', data.token);
+      localStorage.setItem('userData', JSON.stringify(data.user));
+      setUser(data.user);
+      return true;
     } catch (error) {
       console.error('Login error:', error);
       return false;
@@ -78,25 +76,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signup = async (email: string, password: string, confirmPassword: string): Promise<boolean> => {
     try {
       setIsLoading(true);
-      
+
       if (password !== confirmPassword) {
         throw new Error('Passwords do not match');
       }
-      
-      // TODO: Replace with actual API call to /api/signup
-      // Mock signup logic
-      const mockUser: User = {
-        id: Date.now().toString(),
-        email: email,
-        name: email.split('@')[0],
-      };
-      
-      const mockToken = 'mock_jwt_token_' + Date.now();
-      
-      localStorage.setItem('authToken', mockToken);
-      localStorage.setItem('userData', JSON.stringify(mockUser));
-      setUser(mockUser);
-      
+
+      const response = await fetch('/api/signup/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Signup failed');
+      }
+
+      const data = await response.json();
+      localStorage.setItem('authToken', data.token);
+      localStorage.setItem('userData', JSON.stringify(data.user));
+      setUser(data.user);
       return true;
     } catch (error) {
       console.error('Signup error:', error);
