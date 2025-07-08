@@ -1,3 +1,5 @@
 django==4.2
 
+djangorestframework==3.15.1
+
 faker==18.13.0
